@@ -1,6 +1,7 @@
 import { ModeToggle } from './components/mode-toggle'
 import { ThemeProvider } from './components/theme-provider'
-import { SideBar } from './components/side-bar';
+import { SideBar } from './components/side-bar'
+import Home from './pages/Home'
 
 export function App() {
   return (
@@ -11,6 +12,7 @@ export function App() {
       </header>
       <main className="flex box-border m-6">
         <SideBar />
+        <Home />
       </main>
       <footer></footer>
     </ThemeProvider>
