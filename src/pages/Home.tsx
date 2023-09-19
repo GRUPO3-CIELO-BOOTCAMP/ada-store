@@ -15,8 +15,12 @@ type ProductData = {
 
 export default function Home() {
   const [products, setProducts] = useState<ProductData[]>([])
-  const [pageSize, setPageSize] = useState<number>(10)
-  const [pageNumber, setPageNumber] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(
+    import.meta.env.VITE_DEFAULT_PAGE_SIZE,
+  )
+  const [pageNumber, setPageNumber] = useState<number>(
+    import.meta.env.VITE_DEFAULT_PAGE_NUMBER,
+  )
   const [isLoading, setIsLoading] = useState<boolean>(true)
   // TODO: Add logic for search products
   // const [searchProduct, setSearchProduct] = useState<string>('')
