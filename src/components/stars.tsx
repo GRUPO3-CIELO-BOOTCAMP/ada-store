@@ -4,7 +4,7 @@ import { Checkbox } from './ui/checkbox'
 
 type StarsProps = {
   solidStarsAmount: number
-  isChecked: boolean
+  isChecked?: boolean
 }
 
 export const Stars = ({ solidStarsAmount, isChecked = true }: StarsProps) => {
