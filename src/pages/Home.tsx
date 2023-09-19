@@ -37,6 +37,25 @@ export default function Home() {
     })()
   }, [])
 
+  const CategoryFilter = () => {
+    const uniqueCategories: string[] = []
+
+    products.forEach((product) => {
+      if (!uniqueCategories.includes(product.category)) {
+        uniqueCategories.push(product.category)
+      }
+    })
+
+    return (
+      <div>
+        <h1>Listagem de Categorias Únicas:</h1>
+        {uniqueCategories.map((category) => (
+          <p key={category}>{category}</p>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <div
       style={{
@@ -71,6 +90,7 @@ export default function Home() {
             <p>{formatMoney(product.price)}</p>
           </div>
         ))}
+      <CategoryFilter />
     </div>
   )
 }
