@@ -1,5 +1,6 @@
 import { ModeToggle } from './components/mode-toggle'
 import { ThemeProvider } from './components/theme-provider'
+import { SideBar } from './components/side-bar';
 
 export function App() {
   return (
@@ -8,6 +9,10 @@ export function App() {
         <span>ADA STORE</span>
         <ModeToggle />
       </header>
+      <main className="flex box-border m-6">
+        <SideBar />
+      </main>
+      <footer></footer>
     </ThemeProvider>
   )
 }
