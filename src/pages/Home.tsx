@@ -57,27 +57,12 @@ export default function Home() {
   }
 
   return (
-    <div
-      style={{
-        minWidth: '100%',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gridGap: '1rem',
-        margin: '1rem',
-      }}
-    >
+    <div className="min-w-full grid grid-cols-4 gap-4 m-4">
       {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
       {!!products.length &&
         products.map((product) => (
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              maxWidth: '300px',
-              padding: '1rem',
-              borderRadius: '0.25rem',
-              backgroundColor: 'gray',
-            }}
+            className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300"
             key={product.id}
           >
             <img src={product.avatar} alt="imagem do produto" />
