@@ -1,20 +1,13 @@
+import { SideBar } from '@/components/side-bar'
 import { Stars } from '@/components/stars'
 import Api from '@/services/Api'
 import formatMoney from '@/utils/formatMoney'
 import { useEffect, useState } from 'react'
-
-type ProductData = {
-  id: string
-  avatar: string
-  name: string
-  description: string
-  price: string
-  rating: number
-  category: string
-}
+import { ProductData } from '@/types/DataTypes'
 
 export default function Home() {
   const [products, setProducts] = useState<ProductData[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<ProductData[]>([])
   const [pageSize, setPageSize] = useState<number>(
     import.meta.env.VITE_DEFAULT_PAGE_SIZE,
   )
@@ -41,6 +34,22 @@ export default function Home() {
     })()
   }, [])
 
+  const renderProducts = (products: ProductData[]) => {
+    return products.map((product) => (
+      <div
+        className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300"
+        key={product.id}
+      >
+        <img src={product.avatar} alt="imagem do produto" />
+        <p>{product.name}</p>
+        <p>{product.category}</p>
+        <p>{product.description}</p>
+        <p>{<Stars isChecked={false} solidStarsAmount={product.rating} />}</p>
+        <p>{formatMoney(product.price)}</p>
+      </div>
+    ))
+  }
+
   const CategoryFilter = () => {
     const uniqueCategories: string[] = []
 
@@ -50,36 +59,30 @@ export default function Home() {
       }
     })
 
-    return (
-      <div>
-        <h1>Listagem de Categorias Únicas:</h1>
-        {uniqueCategories.map((category) => (
-          <p key={category}>{category}</p>
-        ))}
-      </div>
-    )
+    return uniqueCategories
+  }
+  const categories = CategoryFilter()
+
+  const filterByCategory = (isChecked: boolean, category: string) => {
+    if (isChecked) {
+      const result = products.filter((product) => product.category === category)
+      setFilteredProducts((prev) => [...prev, ...result])
+    } else {
+      const result = filteredProducts.filter(
+        (product) => product.category !== category,
+      )
+      setFilteredProducts(result)
+    }
   }
 
   return (
-    <div className="min-w-full grid grid-cols-4 gap-4 m-4">
+    <div className="grid grid-cols-4 gap-4 m-4">
+      <SideBar handleProducts={filterByCategory} categories={categories} />
       {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
+      {!!filteredProducts.length && renderProducts(filteredProducts)}
       {!!products.length &&
-        products.map((product) => (
-          <div
-            className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300"
-            key={product.id}
-          >
-            <img src={product.avatar} alt="imagem do produto" />
-            <p>{product.name}</p>
-            <p>{product.category}</p>
-            <p>{product.description}</p>
-            <p>
-              {<Stars isChecked={false} solidStarsAmount={product.rating} />}
-            </p>
-            <p>{formatMoney(product.price)}</p>
-          </div>
-        ))}
-      <CategoryFilter />
+        !filteredProducts.length &&
+        renderProducts(products)}
     </div>
   )
 }
