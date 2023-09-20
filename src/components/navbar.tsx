@@ -18,7 +18,7 @@ export const Navbar: React.FC<NavBarProps> = ({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    onInputSearch(search)
+    onInputSearch(search.trim())
   }
 
   return (
