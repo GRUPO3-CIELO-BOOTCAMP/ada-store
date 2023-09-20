@@ -3,13 +3,22 @@ import { Logo } from './logo'
 import { ModeToggle } from './mode-toggle'
 import { Input } from './ui/input'
 import { ChangeEvent, FormEvent, useState } from 'react'
+import { Cart } from './cart'
 
-export const Navbar = () => {
+interface NavBarProps {
+  amountProducts?: number
+  onInputSearch: (search: string) => void
+}
+
+export const Navbar: React.FC<NavBarProps> = ({
+  amountProducts = 0,
+  onInputSearch,
+}) => {
   const [search, setSearch] = useState<string>('')
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    console.log('pesquisar', search)
+    onInputSearch(search)
   }
 
   return (
@@ -53,7 +62,10 @@ export const Navbar = () => {
         </button>
       </form>
 
-      <ModeToggle />
+      <div className="flex items-center gap-6">
+        <Cart amount={amountProducts} />
+        <ModeToggle />
+      </div>
     </header>
   )
 }
