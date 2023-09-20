@@ -4,6 +4,7 @@ import Api from '@/services/Api'
 import formatMoney from '@/utils/formatMoney'
 import { useEffect, useState } from 'react'
 import { ProductData } from '@/types/DataTypes'
+import { Navbar } from '@/components/navbar'
 
 export default function Home() {
   const [products, setProducts] = useState<ProductData[]>([])
@@ -76,13 +77,21 @@ export default function Home() {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4 m-4">
-      <SideBar handleProducts={filterByCategory} categories={categories} />
-      {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
-      {!!filteredProducts.length && renderProducts(filteredProducts)}
-      {!!products.length &&
-        !filteredProducts.length &&
-        renderProducts(products)}
+    <div className="flex flex-col w-full">
+      <Navbar
+        onInputSearch={(term) => {
+          console.log('termo da pesquisa:', term)
+        }}
+        amountProducts={4}
+      />
+      <div className="grid grid-cols-4 gap-4 m-4">
+        <SideBar handleProducts={filterByCategory} categories={categories} />
+        {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
+        {!!filteredProducts.length && renderProducts(filteredProducts)}
+        {!!products.length &&
+          !filteredProducts.length &&
+          renderProducts(products)}
+      </div>
     </div>
   )
 }
