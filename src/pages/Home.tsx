@@ -5,6 +5,15 @@ import formatMoney from '@/utils/formatMoney'
 import { useEffect, useState } from 'react'
 import { ProductData } from '@/types/DataTypes'
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+
 export default function Home() {
   const [products, setProducts] = useState<ProductData[]>([])
   const [filteredProducts, setFilteredProducts] = useState<ProductData[]>([])
@@ -36,17 +45,31 @@ export default function Home() {
 
   const renderProducts = (products: ProductData[]) => {
     return products.map((product) => (
-      <div
-        className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300"
-        key={product.id}
-      >
-        <img src={product.avatar} alt="imagem do produto" />
-        <p>{product.name}</p>
-        <p>{product.category}</p>
-        <p>{product.description}</p>
-        <p>{<Stars isChecked={false} solidStarsAmount={product.rating} />}</p>
-        <p>{formatMoney(product.price)}</p>
-      </div>
+      <Dialog key={product.id}>
+        <div className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300">
+          <DialogContent>
+            <img src={product.avatar} alt="imagem do produto" />
+            <DialogHeader>
+              <DialogTitle>{product.name}</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>{product.description}</DialogDescription>
+            <div>
+              <Stars isChecked={false} solidStarsAmount={product.rating} />
+              {formatMoney(product.price)}
+            </div>
+          </DialogContent>
+          <DialogTrigger>
+            <img src={product.avatar} alt="imagem do produto" />
+            <p>{product.name}</p>
+            <p>{product.category}</p>
+            <p>{product.description}</p>
+            <p>
+              {<Stars isChecked={false} solidStarsAmount={product.rating} />}
+            </p>
+            <p>{formatMoney(product.price)}</p>
+          </DialogTrigger>
+        </div>
+      </Dialog>
     ))
   }
 
