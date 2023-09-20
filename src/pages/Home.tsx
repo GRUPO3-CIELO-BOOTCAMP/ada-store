@@ -23,7 +23,7 @@ export default function Home() {
       try {
         setIsLoading(true)
         const { data } = await Api.get(
-          `/products?pageSize=${10}&pageNumber=${1}`,
+          `/products?pageSize=${pageSize}&pageNumber=${pageNumber}`,
         )
         setProducts(data)
         setIsLoading(false)
