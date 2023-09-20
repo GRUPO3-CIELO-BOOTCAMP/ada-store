@@ -63,16 +63,21 @@ export default function Home() {
   }
   const categories = CategoryFilter()
 
-  const handleProducts = (e: string | boolean, category: string) => {
-    if (e) {
+  const filterByCategory = (isChecked: boolean, category: string) => {
+    if (isChecked) {
       const result = products.filter((product) => product.category === category)
+      setFilteredProducts((prev) => [...prev, ...result])
+    } else {
+      const result = filteredProducts.filter(
+        (product) => product.category !== category,
+      )
       setFilteredProducts(result)
-    } else setFilteredProducts([])
+    }
   }
 
   return (
     <div className="grid grid-cols-4 gap-4 m-4">
-      <SideBar handleProducts={handleProducts} categories={categories} />
+      <SideBar handleProducts={filterByCategory} categories={categories} />
       {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
       {!!filteredProducts.length && renderProducts(filteredProducts)}
       {!!products.length &&

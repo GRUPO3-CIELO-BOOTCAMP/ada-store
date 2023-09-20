@@ -14,21 +14,26 @@ export const Categories = ({ categories, handleProducts }: CategoriesData) => {
         placeholder="Pesquisar em categorias"
         className="h-8 box-border border-2 rounded"
       />
-      {categories.map((category) => {
-        return (
-          <div className="flex items-center w-[102px] gap-[8px]" key={category}>
-            <Checkbox
-              id="side-bar"
-              onCheckedChange={(e) => {
-                handleProducts(e, category)
-              }}
-            />
-            <Label htmlFor="side-bar" className="text-sm">
-              {category}
-            </Label>
-          </div>
-        )
-      })}
+      {categories
+        .sort((a, b) => (a > b ? 1 : -1))
+        .map((category) => {
+          return (
+            <div
+              className="flex items-center w-[102px] gap-[8px]"
+              key={category}
+            >
+              <Checkbox
+                id="side-bar"
+                onCheckedChange={(e) => {
+                  handleProducts(!!e, category)
+                }}
+              />
+              <Label htmlFor="side-bar" className="text-sm">
+                {category}
+              </Label>
+            </div>
+          )
+        })}
     </div>
   )
 }

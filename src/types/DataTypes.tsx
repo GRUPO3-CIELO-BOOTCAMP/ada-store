@@ -10,5 +10,5 @@ export type ProductData = {
 
 export type CategoriesData = {
   categories: string[]
-  handleProducts: (e: string | boolean, category: string) => void
+  handleProducts: (isChecked: boolean, category: string) => void
 }
