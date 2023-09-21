@@ -8,7 +8,7 @@ export const Categories = ({
   filterByCategory,
 }: CategoriesData) => {
   return (
-    <div className="w-[216px] h-[382px] gap-[14px] space-y-1.5">
+    <div className="w-max h-fit gap-[14px] space-y-1.5">
       <h2 className="text-sm font-medium leading-[13px] mb-[13px]">
         Categorias
       </h2>

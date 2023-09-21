@@ -13,7 +13,7 @@ export const ScoreFilter = ({ filterByRating }: ScoreFilterData) => {
   return (
     <>
       <h2 className="text-sm font-medium leading-[13px]">Avaliação</h2>
-      <div className="flex flex-col w-[120px] h-[139px] gap-[4px]">{stars}</div>
+      <div className="flex flex-col w-max h-fit gap-[4px]">{stars}</div>
     </>
   )
 }

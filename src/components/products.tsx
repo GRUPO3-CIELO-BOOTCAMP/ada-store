@@ -32,10 +32,9 @@ export const Products = ({
   return (
     <div className="grid grid-cols-4 gap-4 m-4">
       {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
-      {!!filteredProducts.length && renderProducts(filteredProducts)}
-      {!!products.length &&
-        !filteredProducts.length &&
-        renderProducts(products)}
+      {filteredProducts.length
+        ? renderProducts(filteredProducts)
+        : renderProducts(products)}
     </div>
   )
 }
