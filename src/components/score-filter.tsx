@@ -1,6 +1,9 @@
 import { Stars } from './stars'
 
-export const ScoreFilter = () => {
+type ScoreFilterData = {
+  filterByRating: (isChecked: boolean, rate: number) => void
+}
+export const ScoreFilter = ({ filterByRating }: ScoreFilterData) => {
   const stars = []
 
   for (let i = 5; i > 0; i--) {
@@ -10,7 +13,7 @@ export const ScoreFilter = () => {
   return (
     <>
       <h2 className="text-sm font-medium leading-[13px]">Avaliação</h2>
-      <div className="flex flex-col w-[120px] h-[139px] gap-[4px]">{stars}</div>
+      <div className="flex flex-col w-max h-fit gap-[4px]">{stars}</div>
     </>
   )
 }

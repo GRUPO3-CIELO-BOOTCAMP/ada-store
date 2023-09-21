@@ -1,10 +1,9 @@
 import { SideBar } from '@/components/side-bar'
-import { Stars } from '@/components/stars'
 import Api from '@/services/Api'
-import formatMoney from '@/utils/formatMoney'
 import { useEffect, useState } from 'react'
 import { ProductData } from '@/types/DataTypes'
 import { Navbar } from '@/components/navbar'
+import { Products } from '@/components/products'
 
 export default function Home() {
   const [products, setProducts] = useState<ProductData[]>([])
@@ -35,22 +34,6 @@ export default function Home() {
     })()
   }, [])
 
-  const renderProducts = (products: ProductData[]) => {
-    return products.map((product) => (
-      <div
-        className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300"
-        key={product.id}
-      >
-        <img src={product.avatar} alt="imagem do produto" />
-        <p>{product.name}</p>
-        <p>{product.category}</p>
-        <p>{product.description}</p>
-        <p>{<Stars isChecked={false} solidStarsAmount={product.rating} />}</p>
-        <p>{formatMoney(product.price)}</p>
-      </div>
-    ))
-  }
-
   const CategoryFilter = () => {
     const uniqueCategories: string[] = []
 
@@ -76,6 +59,19 @@ export default function Home() {
     }
   }
 
+  const filterByRating = (isChecked: boolean, rate: number) => {
+    const result: ProductData[] = []
+    if (filteredProducts.length)
+      filteredProducts.forEach((product) => {
+        if (product.rating >= rate) result.push(product)
+      })
+    else if (rate)
+      products.forEach((product) => {
+        if (product.rating >= rate) result.push(product)
+      })
+    setFilteredProducts(result.length ? result : products)
+  }
+
   return (
     <div className="flex flex-col w-full">
       <Navbar
@@ -84,13 +80,17 @@ export default function Home() {
         }}
         amountProducts={4}
       />
-      <div className="grid grid-cols-4 gap-4 m-4">
-        <SideBar handleProducts={filterByCategory} categories={categories} />
-        {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
-        {!!filteredProducts.length && renderProducts(filteredProducts)}
-        {!!products.length &&
-          !filteredProducts.length &&
-          renderProducts(products)}
+      <div className="flex">
+        <SideBar
+          filterByCategory={filterByCategory}
+          filterByRating={filterByRating}
+          categories={categories}
+        />
+        <Products
+          products={products}
+          isLoading={isLoading}
+          filteredProducts={filteredProducts}
+        />
       </div>
     </div>
   )
