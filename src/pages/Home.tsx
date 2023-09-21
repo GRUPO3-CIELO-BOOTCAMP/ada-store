@@ -1,22 +1,19 @@
-import { Stars } from '@/components/stars'
+import { SideBar } from '@/components/side-bar'
 import Api from '@/services/Api'
-import formatMoney from '@/utils/formatMoney'
 import { useEffect, useState } from 'react'
-
-type ProductData = {
-  id: string
-  avatar: string
-  name: string
-  description: string
-  price: string
-  rating: number
-  category: string
-}
+import { ProductData } from '@/types/DataTypes'
+import { Navbar } from '@/components/navbar'
+import { Products } from '@/components/products'
 
 export default function Home() {
   const [products, setProducts] = useState<ProductData[]>([])
-  const [pageSize, setPageSize] = useState<number>(10)
-  const [pageNumber, setPageNumber] = useState<number>(1)
+  const [filteredProducts, setFilteredProducts] = useState<ProductData[]>([])
+  const [pageSize, setPageSize] = useState<number>(
+    import.meta.env.VITE_DEFAULT_PAGE_SIZE,
+  )
+  const [pageNumber, setPageNumber] = useState<number>(
+    import.meta.env.VITE_DEFAULT_PAGE_NUMBER,
+  )
   const [isLoading, setIsLoading] = useState<boolean>(true)
   // TODO: Add logic for search products
   // const [searchProduct, setSearchProduct] = useState<string>('')
@@ -46,36 +43,55 @@ export default function Home() {
       }
     })
 
-    return (
-      <div>
-        <h1>Listagem de Categorias Únicas:</h1>
-        {uniqueCategories.map((category) => (
-          <p key={category}>{category}</p>
-        ))}
-      </div>
-    )
+    return uniqueCategories
+  }
+  const categories = CategoryFilter()
+
+  const filterByCategory = (isChecked: boolean, category: string) => {
+    if (isChecked) {
+      const result = products.filter((product) => product.category === category)
+      setFilteredProducts((prev) => [...prev, ...result])
+    } else {
+      const result = filteredProducts.filter(
+        (product) => product.category !== category,
+      )
+      setFilteredProducts(result)
+    }
+  }
+
+  const filterByRating = (isChecked: boolean, rate: number) => {
+    const result: ProductData[] = []
+    if (filteredProducts.length)
+      filteredProducts.forEach((product) => {
+        if (product.rating >= rate) result.push(product)
+      })
+    else if (rate)
+      products.forEach((product) => {
+        if (product.rating >= rate) result.push(product)
+      })
+    setFilteredProducts(result.length ? result : products)
   }
 
   return (
-    <div className="min-w-full grid grid-cols-4 gap-4 m-4">
-      {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
-      {!!products.length &&
-        products.map((product) => (
-          <div
-            className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300"
-            key={product.id}
-          >
-            <img src={product.avatar} alt="imagem do produto" />
-            <p>{product.name}</p>
-            <p>{product.category}</p>
-            <p>{product.description}</p>
-            <p>
-              {<Stars isChecked={false} solidStarsAmount={product.rating} />}
-            </p>
-            <p>{formatMoney(product.price)}</p>
-          </div>
-        ))}
-      <CategoryFilter />
+    <div className="flex flex-col w-full">
+      <Navbar
+        onInputSearch={(term) => {
+          console.log('termo da pesquisa:', term)
+        }}
+        amountProducts={4}
+      />
+      <div className="flex">
+        <SideBar
+          filterByCategory={filterByCategory}
+          filterByRating={filterByRating}
+          categories={categories}
+        />
+        <Products
+          products={products}
+          isLoading={isLoading}
+          filteredProducts={filteredProducts}
+        />
+      </div>
     </div>
   )
 }
