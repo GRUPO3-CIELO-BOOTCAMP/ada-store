@@ -1,6 +1,9 @@
 import { Stars } from './stars'
 
-export const ScoreFilter = () => {
+type ScoreFilterData = {
+  filterByRating: (isChecked: boolean, rate: number) => void
+}
+export const ScoreFilter = ({ filterByRating }: ScoreFilterData) => {
   const stars = []
 
   for (let i = 5; i > 0; i--) {
