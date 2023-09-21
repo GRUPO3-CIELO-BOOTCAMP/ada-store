@@ -16,14 +16,14 @@ export default function Home() {
   )
   const [isLoading, setIsLoading] = useState<boolean>(true)
   // TODO: Add logic for search products
-  // const [searchProduct, setSearchProduct] = useState<string>('')
+  const [searchProduct, setSearchProduct] = useState<string>('')
 
   useEffect(() => {
     ;(async () => {
       try {
         setIsLoading(true)
         const { data } = await Api.get(
-          `/products?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+          `/products?pageSize=${pageSize}&pageNumber=${pageNumber}&search=${searchProduct}`,
         )
         setProducts(data)
         setIsLoading(false)
@@ -32,7 +32,7 @@ export default function Home() {
         setIsLoading(false)
       }
     })()
-  }, [])
+  }, [searchProduct])
 
   const CategoryFilter = () => {
     const uniqueCategories: string[] = []
@@ -74,12 +74,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full">
-      <Navbar
-        onInputSearch={(term) => {
-          console.log('termo da pesquisa:', term)
-        }}
-        amountProducts={4}
-      />
+      <Navbar onInputSearch={setSearchProduct} amountProducts={4} />
       <div className="flex">
         <SideBar
           filterByCategory={filterByCategory}

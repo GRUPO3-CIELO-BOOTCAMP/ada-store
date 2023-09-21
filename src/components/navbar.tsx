@@ -40,13 +40,8 @@ export const Navbar: React.FC<NavBarProps> = ({
           placeholder="O que você está procurando?"
           className=" bg-zinc-50 text-default"
         />
-        <button
-          type="submit"
-          disabled={!search}
-          className="flex items-center justify-center"
-        >
+        <button type="submit" className="flex items-center justify-center">
           <Search
-            data-disabled={search === ''}
             strokeWidth={2.5}
             className="
               h-6
