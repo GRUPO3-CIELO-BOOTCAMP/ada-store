@@ -1,8 +1,18 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
+import ArrowLeft from './../assets/arrow_left.svg'
+import ArrowRight from './../assets/arrow_right.svg'
 
-export const Pagination = () => {
-  const [pageNumber, setPageNumber] = useState<number>(1)
+interface PaginationProps {
+  pageNumber: number
+  pageSize: number
+  setPageNumber: Dispatch<SetStateAction<number>>
+}
 
+export const Pagination = ({
+  pageNumber,
+  pageSize,
+  setPageNumber,
+}: PaginationProps) => {
   const getPageNumbers = (currentPage: number, totalPages: number) => {
     const pageNumbers = []
     const maxPageNumbersToShow = 5
@@ -34,7 +44,9 @@ export const Pagination = () => {
     setPageNumber(newPage)
   }
   const handleNextPageClick = () => {
-    setPageNumber(pageNumber + 1)
+    if (pageNumber < pageSize) {
+      setPageNumber(pageNumber + 1)
+    }
   }
 
   const handlePreviosPageClick = () => {
@@ -43,23 +55,23 @@ export const Pagination = () => {
     }
   }
 
-  const totalPages = 10
+  const totalPages = pageSize
   const pageNumbers = getPageNumbers(pageNumber, totalPages)
 
   return (
-    <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+    <div className="flex items-center justify-center bg-white px-4 py-3 sm:px-6 pb-32">
+      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center">
         <div>
-          <nav
-            className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-            aria-label="Pagination"
-          >
+          <nav className="inline-flex -space-x-px" aria-label="Pagination">
             <a
               href="#"
-              className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center px-2 py-2 text-gray-400 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 gap-4"
               onClick={handlePreviosPageClick}
             >
-              <span>Anterior</span>
+              <span className="flex gap-2 text-base">
+                <img src={ArrowLeft} alt="seta para esquerda paginação" />{' '}
+                Anterior
+              </span>
             </a>
             {pageNumbers.map((page) => (
               <a
@@ -70,17 +82,20 @@ export const Pagination = () => {
                   page === pageNumber
                     ? 'bg-indigo-600 text-white'
                     : 'text-gray-900'
-                } px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0`}
+                } px-4 py-2 text-base font-semibold hover:bg-gray-50 focus:z-20 focus:outline-offset-0`}
               >
                 {page}
               </a>
             ))}
             <a
               href="#"
-              className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               onClick={handleNextPageClick}
             >
-              <span>Próximo</span>
+              <span className="flex gap-2 text-base">
+                Próximo
+                <img src={ArrowRight} alt="seta para esquerda paginação" />
+              </span>
             </a>
           </nav>
         </div>
