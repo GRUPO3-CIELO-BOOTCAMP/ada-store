@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
 import { Checkbox } from './ui/checkbox'
-import { Input } from './ui/input'
 import { Label } from './ui/label'
 
 type CategoriesData = {
@@ -25,11 +24,6 @@ export const Categories = ({
       <h2 className="text-sm font-medium leading-[13px] mb-[13px]">
         Categorias
       </h2>
-      <Input
-        type="categories"
-        placeholder="Pesquisar em categorias"
-        className="h-8 box-border border-2 rounded"
-      />
       {categories
         .sort((a, b) => (a > b ? 1 : -1))
         .map((category) => {
