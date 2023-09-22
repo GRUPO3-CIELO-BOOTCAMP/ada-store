@@ -1,10 +1,5 @@
-import {
-  Facebook,
-  Instagram,
-  Youtube,
-  Twitter,
-  MessageCircleIcon,
-} from 'lucide-react'
+import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react'
+import { WhatsappLogo } from './WhatsappLogo'
 
 export function Footer() {
   return (
@@ -13,7 +8,7 @@ export function Footer() {
         <img src="../src/assets/logo.svg" alt="Logo da empresa" />
       </div>
 
-      <div>
+      <div className="text-zinc-50">
         <h2 className="text-xl font-semibold font-sans">Fale conosco</h2>
         <p className="mt-2 text-sm">adastore@gmail.com</p>
         <p className="text-sm">(00) 00000-0000</p>
@@ -27,19 +22,19 @@ export function Footer() {
         </h2>
         <div className="flex mt-6">
           <span className="rounded-full mr-4 bg-roundedGreen p-2">
-            <Facebook size={32} fill="dark" />
-          </span>
-          <span>
-            <MessageCircleIcon />
+            <Facebook size={24} />
           </span>
           <span className="rounded-full mr-4 bg-roundedGreen p-2">
-            <Instagram size={32} fill="dark" />
+            <WhatsappLogo />
           </span>
           <span className="rounded-full mr-4 bg-roundedGreen p-2">
-            <Youtube size={32} />
+            <Instagram size={24} />
+          </span>
+          <span className="rounded-full mr-4 bg-roundedGreen p-2">
+            <Youtube size={24} />
           </span>
           <span className="rounded-full bg-roundedGreen mr-4 p-2">
-            <Twitter size={32} fill="dark" />
+            <Twitter size={24} />
           </span>
         </div>
       </div>
