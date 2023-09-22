@@ -5,10 +5,24 @@ import { Checkbox } from './ui/checkbox'
 type StarsProps = {
   solidStarsAmount: number
   isChecked?: boolean
+  handleProducts?: (isChecked: boolean, value: number | string) => void
 }
 
-export const Stars = ({ solidStarsAmount, isChecked = true }: StarsProps) => {
-  const container = [isChecked ? <Checkbox className="mr-2" /> : undefined]
+export const Stars = ({
+  solidStarsAmount,
+  isChecked = true,
+  handleProducts,
+}: StarsProps) => {
+  const container = [
+    isChecked ? (
+      <Checkbox
+        className="mr-2"
+        onCheckedChange={(e) => {
+          handleProducts && handleProducts(!!e, solidStarsAmount)
+        }}
+      />
+    ) : undefined,
+  ]
 
   for (let i = 0; i < 5; i++) {
     if (i < solidStarsAmount) container.push(<SolidStar />)

@@ -32,7 +32,12 @@ export const Products = ({
             {product.category}
           </span>
           <p className="flex items-center text-gray-700 gap-1">
-            {<Stars isChecked={false} solidStarsAmount={product.rating} />}{' '}
+            {
+              <Stars
+                isChecked={false}
+                solidStarsAmount={Math.floor(product.rating)}
+              />
+            }{' '}
             {product.rating}
           </p>
           <span className="font-bold text-2xl leading-[1.5rem] text-blue-500">
