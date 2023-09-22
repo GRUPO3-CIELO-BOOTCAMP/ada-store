@@ -53,6 +53,7 @@ export default function Home() {
       pageNumber !== PAGE_NUMBER_DEFAULT ||
       pageSize !== PAGE_SIZE_DEFAULT
     ) {
+      setPageNumber(PAGE_NUMBER_DEFAULT)
       await fetchProducts(
         PAGE_SIZE_DEFAULT,
         PAGE_NUMBER_DEFAULT,
