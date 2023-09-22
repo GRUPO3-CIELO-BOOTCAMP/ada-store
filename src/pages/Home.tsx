@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full">
-      <Navbar onInputSearch={setSearchProduct} amountProducts={4} />
+      <Navbar onInputSearch={setSearchProduct} />
       <div className="flex">
         <SideBar
           products={products}
