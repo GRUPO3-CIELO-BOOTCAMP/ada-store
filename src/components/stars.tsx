@@ -1,25 +1,34 @@
 import { SolidStar } from './solid-star'
 import { EmptyStar } from './empty-star'
 import { Checkbox } from './ui/checkbox'
+import { Dispatch, SetStateAction } from 'react'
 
 type StarsProps = {
   solidStarsAmount: number
   isChecked?: boolean
-  handleProducts?: (isChecked: boolean, value: number | string) => void
+  setSelectedRatings: Dispatch<SetStateAction<number[]>>
 }
 
 export const Stars = ({
   solidStarsAmount,
   isChecked = true,
-  handleProducts,
+  setSelectedRatings,
 }: StarsProps) => {
+  const handleClick = (isChecked: boolean, rating: number) => {
+    if (isChecked) {
+      setSelectedRatings((prev) => [...prev, rating])
+    } else {
+      setSelectedRatings((prev) => prev.filter((r) => r !== rating))
+    }
+  }
+
   const container = [
     isChecked ? (
       <Checkbox
         className="mr-2"
-        onCheckedChange={(e) => {
-          handleProducts && handleProducts(!!e, solidStarsAmount)
-        }}
+        onCheckedChange={(isChecked) =>
+          handleClick(!!isChecked, solidStarsAmount)
+        }
       />
     ) : undefined,
   ]

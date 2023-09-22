@@ -1,13 +1,25 @@
+import { Dispatch, SetStateAction } from 'react'
 import { Checkbox } from './ui/checkbox'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 
 type CategoriesData = {
   categories: string[]
-  handleProducts: (isChecked: boolean, value: number | string) => void
+  setSelectedCategories: Dispatch<SetStateAction<string[]>>
 }
 
-export const Categories = ({ categories, handleProducts }: CategoriesData) => {
+export const Categories = ({
+  categories,
+  setSelectedCategories,
+}: CategoriesData) => {
+  const handleClick = (isChecked: boolean, category: string) => {
+    if (isChecked) {
+      setSelectedCategories((prev) => [...prev, category])
+    } else {
+      setSelectedCategories((prev) => prev.filter((c) => c !== category))
+    }
+  }
+
   return (
     <div className="w-max h-fit gap-[14px] space-y-1.5">
       <h2 className="text-sm font-medium leading-[13px] mb-[13px]">
@@ -27,9 +39,9 @@ export const Categories = ({ categories, handleProducts }: CategoriesData) => {
               key={category}
             >
               <Checkbox
-                onCheckedChange={(e) => {
-                  handleProducts(!!e, category)
-                }}
+                onCheckedChange={(isChecked) =>
+                  handleClick(!!isChecked, category)
+                }
               />
               <Label htmlFor="side-bar" className="text-sm">
                 {category}

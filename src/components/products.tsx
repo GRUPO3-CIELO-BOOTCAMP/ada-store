@@ -6,12 +6,14 @@ type ProductsData = {
   products: ProductData[]
   filteredProducts: ProductData[]
   isLoading: boolean
+  activeFilters: boolean
 }
 
 export const Products = ({
   products,
   isLoading,
   filteredProducts,
+  activeFilters,
 }: ProductsData) => {
   const renderProducts = (products: ProductData[]) => {
     return products.map((product) => (
@@ -36,6 +38,7 @@ export const Products = ({
               <Stars
                 isChecked={false}
                 solidStarsAmount={Math.floor(product.rating)}
+                setSelectedRatings={() => null}
               />
             }{' '}
             {product.rating}
@@ -47,11 +50,11 @@ export const Products = ({
       </div>
     ))
   }
-
+  console.log(filteredProducts.length)
   return (
     <div className="grid grid-cols-4 gap-4 m-4">
       {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
-      {filteredProducts.length
+      {filteredProducts.length || activeFilters
         ? renderProducts(filteredProducts)
         : renderProducts(products)}
     </div>
