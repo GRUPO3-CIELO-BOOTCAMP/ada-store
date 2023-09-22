@@ -1,13 +1,14 @@
 import { Stars } from './stars'
 
 type ScoreFilterData = {
-  filterByRating: (isChecked: boolean, rate: number) => void
+  handleProducts: (isChecked: boolean, value: number | string) => void
 }
-export const ScoreFilter = ({ filterByRating }: ScoreFilterData) => {
+
+export const ScoreFilter = ({ handleProducts }: ScoreFilterData) => {
   const stars = []
 
   for (let i = 5; i > 0; i--) {
-    stars.push(<Stars solidStarsAmount={i} />)
+    stars.push(<Stars solidStarsAmount={i} handleProducts={handleProducts} />)
   }
 
   return (
