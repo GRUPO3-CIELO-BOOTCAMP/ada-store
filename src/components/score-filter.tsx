@@ -1,13 +1,17 @@
+import { Dispatch, SetStateAction } from 'react'
 import { Stars } from './stars'
 
 type ScoreFilterData = {
-  filterByRating: (isChecked: boolean, rate: number) => void
+  setSelectedRatings: Dispatch<SetStateAction<number[]>>
 }
-export const ScoreFilter = ({ filterByRating }: ScoreFilterData) => {
+
+export const ScoreFilter = ({ setSelectedRatings }: ScoreFilterData) => {
   const stars = []
 
   for (let i = 5; i > 0; i--) {
-    stars.push(<Stars solidStarsAmount={i} />)
+    stars.push(
+      <Stars solidStarsAmount={i} setSelectedRatings={setSelectedRatings} />,
+    )
   }
 
   return (

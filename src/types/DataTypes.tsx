@@ -7,12 +7,3 @@ export type ProductData = {
   rating: number
   category: string
 }
-
-export type CategoriesData = {
-  categories: string[]
-  filterByCategory: (isChecked: boolean, category: string) => void
-}
-
-export type RatingData = {
-  filterByRating: (isChecked: boolean, rate: number) => void
-}
