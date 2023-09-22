@@ -1,15 +1,21 @@
-import { Search } from 'lucide-react'
+import { RefreshCcw, Search } from 'lucide-react'
 import { Logo } from './logo'
 import { ModeToggle } from './mode-toggle'
 import { Input } from './ui/input'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Cart } from './cart'
+import { Button } from './ui/button'
 
 interface NavBarProps {
   onInputSearch: (search: string) => void
+  onRefreshProducts?: () => void
+  loading?: boolean
 }
 
-export const Navbar: React.FC<NavBarProps> = ({ onInputSearch }) => {
+export const Navbar: React.FC<NavBarProps> = ({
+  onInputSearch,
+  onRefreshProducts,
+}) => {
   const productsStorage = window.localStorage.getItem('products_cart')
   const productsCart = productsStorage ? JSON.parse(productsStorage) : null
   const [search, setSearch] = useState<string>('')
@@ -68,6 +74,15 @@ export const Navbar: React.FC<NavBarProps> = ({ onInputSearch }) => {
           />
         </button>
       </form>
+
+      <Button
+        onClick={onRefreshProducts}
+        variant="outline"
+        className="flex items-center gap-2 border border-zinc-100"
+      >
+        Atualizar produtos
+        <RefreshCcw className="h-4 w-4" />
+      </Button>
 
       <div className="flex items-center gap-6">
         <Cart amount={amount} />
