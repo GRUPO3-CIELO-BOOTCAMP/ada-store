@@ -16,15 +16,29 @@ export const Products = ({
   const renderProducts = (products: ProductData[]) => {
     return products.map((product) => (
       <div
-        className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300"
+        className="flex flex-col max-w-[400px] p-4 bg-gradient-to-r from-opacity-13 via-opacity-0 to-opacity-13 border border-solid border-opacity-21 rounded-[0.25rem] mb-8"
         key={product.id}
       >
-        <img src={product.avatar} alt="imagem do produto" />
-        <p>{product.name}</p>
-        <p>{product.category}</p>
-        <p>{product.description}</p>
-        <p>{<Stars isChecked={false} solidStarsAmount={product.rating} />}</p>
-        <p>{formatMoney(product.price)}</p>
+        <img
+          className="px-12 py-4 min-h-[122px] min-w-[122px]"
+          src={product.avatar}
+          alt="imagem do produto"
+        />
+        <div className="flex flex-col gap-3">
+          <p className="text-base leading-[1.5rem] min-h-[3rem] text-gray-900">
+            {product.name}
+          </p>
+          <span className="font-normal text-xs leading-[0.75rem] text-blue-500">
+            {product.category}
+          </span>
+          <p className="flex items-center text-gray-700 gap-1">
+            {<Stars isChecked={false} solidStarsAmount={product.rating} />}{' '}
+            {product.rating}
+          </p>
+          <span className="font-bold text-2xl leading-[1.5rem] text-blue-500">
+            {formatMoney(product.price)}
+          </span>
+        </div>
       </div>
     ))
   }
