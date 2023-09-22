@@ -1,3 +1,4 @@
+import { Footer } from './components/footer'
 import { ThemeProvider } from './components/theme-provider'
 import Home from './pages/Home'
 
@@ -7,7 +8,9 @@ export function App() {
       <main className="flex box-border">
         <Home />
       </main>
-      <footer></footer>
+      <footer>
+        <Footer />
+      </footer>
     </ThemeProvider>
   )
 }
