@@ -21,26 +21,26 @@ export function Footer() {
           Nos acompanhe nas redes
         </h2>
         <div className="flex mt-6">
-          <span className="rounded-full text-primary mr-4 bg-roundedGreen p-2">
-            <Facebook size={24} />
+          <span className="rounded-full mr-4 bg-roundedGreen p-2">
+            <Facebook size={24} style={{ color: 'black' }} />
           </span>
           <span className="rounded-full mr-4 bg-roundedGreen p-2">
             <WhatsappLogo />
           </span>
-          <span className="rounded-full text-primary mr-4 bg-roundedGreen p-2">
-            <Instagram size={24} />
+          <span className="rounded-full  mr-4 bg-roundedGreen p-2">
+            <Instagram size={24} style={{ color: 'black' }} />
           </span>
-          <span className="rounded-full text-primary mr-4 bg-roundedGreen p-2">
-            <Youtube size={24} />
+          <span className="rounded-full  mr-4 bg-roundedGreen p-2">
+            <Youtube size={24} style={{ color: 'black' }} />
           </span>
-          <span className="rounded-full text-primary bg-roundedGreen mr-4 p-2">
-            <Twitter size={24} />
+          <span className="rounded-full  bg-roundedGreen mr-4 p-2">
+            <Twitter size={24} style={{ color: 'black' }} />
           </span>
         </div>
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold font-sans">Baixe o APP</h2>
+        <h2 className="text-xl text-white font-sans">Baixe o APP</h2>
         <div className="flex mt-6">
           <img className="mr-2.5" src="../src/assets/appStore.svg" alt="" />
           <img src="../src/assets/playstore.svg" alt="" />
