@@ -59,7 +59,7 @@ export const Pagination = ({
   const pageNumbers = getPageNumbers(pageNumber, totalPages)
 
   return (
-    <div className="flex items-center justify-center bg-white px-4 py-3 sm:px-6 pb-32">
+    <div className="flex items-center justify-center px-4 py-3 sm:px-6 pb-32">
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center">
         <div>
           <nav className="inline-flex -space-x-px" aria-label="Pagination">
@@ -73,19 +73,21 @@ export const Pagination = ({
                 Anterior
               </span>
             </a>
-            {pageNumbers.map((page) => (
-              <a
-                key={page}
-                href="#"
-                onClick={() => handlePageNumberClick(page)}
-                className={`relative z-10 inline-flex items-center ${
-                  page === pageNumber
-                    ? 'bg-indigo-600 text-white'
-                    : 'text-gray-900'
-                } px-4 py-2 text-base font-semibold hover:bg-gray-50 focus:z-20 focus:outline-offset-0`}
-              >
-                {page}
-              </a>
+            {pageNumbers.map((page: number) => (
+              <>
+                <a
+                  key={page}
+                  href="#"
+                  onClick={() => handlePageNumberClick(page)}
+                  className={`relative z-10 inline-flex items-center ${
+                    page === pageNumber
+                      ? 'bg-indigo-600 text-white'
+                      : 'text-gray-900'
+                  } px-4 py-2 text-base font-semibold hover:bg-gray-50 focus:z-20 focus:outline-offset-0`}
+                >
+                  {page}
+                </a>
+              </>
             ))}
             <a
               href="#"

@@ -8,9 +8,10 @@ import { useToast } from '@/components/ui/use-toast'
 import { Pagination } from '@/components/pagination'
 
 export default function Home() {
-  const PAGE_SIZE_DEFAULT: number = import.meta.env.VITE_DEFAULT_PAGE_SIZE || 0
+  const PAGE_SIZE_DEFAULT: number =
+    Number(import.meta.env.VITE_DEFAULT_PAGE_SIZE) || 0
   const PAGE_NUMBER_DEFAULT: number =
-    import.meta.env.VITE_DEFAULT_PAGE_NUMBER || 1
+    Number(import.meta.env.VITE_DEFAULT_PAGE_NUMBER) || 1
   const SEARCH_TERM_DEFAULT = ''
 
   const [products, setProducts] = useState<ProductData[]>([])
