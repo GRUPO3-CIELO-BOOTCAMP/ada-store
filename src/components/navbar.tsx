@@ -2,19 +2,31 @@ import { Search } from 'lucide-react'
 import { Logo } from './logo'
 import { ModeToggle } from './mode-toggle'
 import { Input } from './ui/input'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Cart } from './cart'
 
 interface NavBarProps {
-  amountProducts?: number
   onInputSearch: (search: string) => void
 }
 
-export const Navbar: React.FC<NavBarProps> = ({
-  amountProducts = 0,
-  onInputSearch,
-}) => {
+export const Navbar: React.FC<NavBarProps> = ({ onInputSearch }) => {
+  const productsStorage = window.localStorage.getItem('products_cart')
+  const productsCart = productsStorage ? JSON.parse(productsStorage) : null
   const [search, setSearch] = useState<string>('')
+  const [amount, setAmount] = useState<number>(productsCart?.length || 0)
+
+  useEffect(() => {
+    function handleStorageChange(event: StorageEvent) {
+      if (event.key === 'products_cart') {
+        const newProductsCart = JSON.parse(event.newValue || '[]')
+        setAmount(newProductsCart.length || 0)
+      }
+    }
+    window.addEventListener('storage', handleStorageChange)
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+    }
+  }, [])
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -58,7 +70,7 @@ export const Navbar: React.FC<NavBarProps> = ({
       </form>
 
       <div className="flex items-center gap-6">
-        <Cart amount={amountProducts} />
+        <Cart amount={amount} />
         <ModeToggle />
       </div>
     </header>
