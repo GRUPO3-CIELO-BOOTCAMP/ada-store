@@ -1,20 +1,18 @@
-import { ModeToggle } from './components/mode-toggle'
+import { Footer } from './components/footer'
 import { ThemeProvider } from './components/theme-provider'
-import { SideBar } from './components/side-bar'
+import { Toaster } from './components/ui/toaster'
 import Home from './pages/Home'
 
 export function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <header className="h-12 border border-b-zinc-800 flex justify-between items-center px-8">
-        <span>ADA STORE</span>
-        <ModeToggle />
-      </header>
-      <main className="flex box-border m-6">
-        <SideBar />
+      <main className="flex box-border">
         <Home />
+        <Toaster />
       </main>
-      <footer></footer>
+      <footer>
+        <Footer />
+      </footer>
     </ThemeProvider>
   )
 }

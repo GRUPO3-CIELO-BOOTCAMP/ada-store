@@ -1,46 +1,48 @@
+import { Dispatch, SetStateAction } from 'react'
 import { Checkbox } from './ui/checkbox'
-import { Input } from './ui/input'
 import { Label } from './ui/label'
 
-export const Categories = () => {
-  const testObject = [
-    {
-      id: '1',
-      name: 'Licensed Bronze Soap',
-      avatar: 'https://loremflickr.com/640/480?lock=1398074320617472',
-      description:
-        'Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support',
-      price: '134.00',
-      rating: 1.2,
-      category: 'Shoes',
-    },
-    {
-      id: '2',
-      name: 'Bespoke Rubber Pants',
-      avatar: 'https://loremflickr.com/640/480?lock=5772969227845632',
-      description:
-        'The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality',
-      price: '187.00',
-      rating: 1.6,
-      category: 'Baby',
-    },
-  ]
+type CategoriesData = {
+  categories: string[]
+  setSelectedCategories: Dispatch<SetStateAction<string[]>>
+}
+
+export const Categories = ({
+  categories,
+  setSelectedCategories,
+}: CategoriesData) => {
+  const handleClick = (isChecked: boolean, category: string) => {
+    if (isChecked) {
+      setSelectedCategories((prev) => [...prev, category])
+    } else {
+      setSelectedCategories((prev) => prev.filter((c) => c !== category))
+    }
+  }
+
   return (
-    <div className="space-y-1.5">
-      <h2>Categorias</h2>
-      <Input
-        type="categories"
-        placeholder="Pesquisar em categorias"
-        className="h-6"
-      />
-      {testObject.map((object) => {
-        return (
-          <div className="flex items-center space-x-2" key={object.id}>
-            <Checkbox id="side-bar" />
-            <Label htmlFor="side-bar">{object.category}</Label>
-          </div>
-        )
-      })}
+    <div className="w-max h-fit gap-[14px] space-y-1.5">
+      <h2 className="text-sm font-medium leading-[13px] mb-[13px]">
+        Categorias
+      </h2>
+      {categories
+        .sort((a, b) => (a > b ? 1 : -1))
+        .map((category) => {
+          return (
+            <div
+              className="flex items-center w-[102px] gap-[8px]"
+              key={category}
+            >
+              <Checkbox
+                onCheckedChange={(isChecked) =>
+                  handleClick(!!isChecked, category)
+                }
+              />
+              <Label htmlFor="side-bar" className="text-sm">
+                {category}
+              </Label>
+            </div>
+          )
+        })}
     </div>
   )
 }

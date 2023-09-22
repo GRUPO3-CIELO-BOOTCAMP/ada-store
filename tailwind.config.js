@@ -16,6 +16,8 @@ export const theme = {
   },
   extend: {
     colors: {
+      roundedGreen: '#A8F652',
+      default: 'hsla(153, 14%, 15%, 1)',
       border: 'hsl(var(--border))',
       input: 'hsl(var(--input))',
       ring: 'hsl(var(--ring))',
