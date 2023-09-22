@@ -7,6 +7,7 @@ import { Products } from '@/components/products'
 
 export default function Home() {
   const [products, setProducts] = useState<ProductData[]>([])
+  const [activeFilters, setActiveFilters] = useState<boolean>(false)
   const [filteredProducts, setFilteredProducts] = useState<ProductData[]>([])
   const [pageSize, setPageSize] = useState<number>(
     import.meta.env.VITE_DEFAULT_PAGE_SIZE,
@@ -40,10 +41,11 @@ export default function Home() {
       <div className="flex">
         <SideBar
           products={products}
-          filteredProducts={filteredProducts}
           setFilteredProducts={setFilteredProducts}
+          setActiveFilters={setActiveFilters}
         />
         <Products
+          activeFilters={activeFilters}
           products={products}
           isLoading={isLoading}
           filteredProducts={filteredProducts}
