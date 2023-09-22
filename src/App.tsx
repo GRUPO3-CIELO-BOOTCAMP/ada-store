@@ -1,5 +1,6 @@
 import { Footer } from './components/footer'
 import { ThemeProvider } from './components/theme-provider'
+import { Toaster } from './components/ui/toaster'
 import Home from './pages/Home'
 
 export function App() {
@@ -7,6 +8,7 @@ export function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <main className="flex box-border">
         <Home />
+        <Toaster />
       </main>
       <footer>
         <Footer />
