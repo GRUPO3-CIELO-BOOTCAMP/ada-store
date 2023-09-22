@@ -51,7 +51,7 @@ export const Products = ({
     ))
   }
   return (
-    <div className="grid grid-cols-4 gap-4 m-4">
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4 m-4">
       {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
       {filteredProducts.length || activeFilters
         ? renderProducts(filteredProducts)

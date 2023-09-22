@@ -59,7 +59,7 @@ export const SideBar = ({
   ])
 
   return (
-    <div className="flex flex-col w-min h-fit m-4 p-[16px] gap-[20px] box-border border-2 rounded">
+    <div className="flex flex-col min-w-min h-fit m-4 p-[16px] gap-[20px] box-border border-2 rounded">
       <Categories
         categories={categories}
         setSelectedCategories={setSelectedCategories}
