@@ -5,6 +5,7 @@ import { Navbar } from '@/components/navbar'
 import { SideBar } from '@/components/side-bar'
 import { Products } from '@/components/products'
 import { useToast } from '@/components/ui/use-toast'
+import { Pagination } from '@/components/pagination'
 
 export default function Home() {
   const PAGE_SIZE_DEFAULT = import.meta.env.VITE_DEFAULT_PAGE_SIZE
@@ -43,7 +44,7 @@ export default function Home() {
     ;(async () => {
       await fetchProducts(pageSize, pageNumber, searchProduct)
     })()
-  }, [searchProduct])
+  }, [pageNumber, pageSize, searchProduct])
 
   async function handleRefreshProducts() {
     if (
@@ -74,12 +75,15 @@ export default function Home() {
           setFilteredProducts={setFilteredProducts}
           setActiveFilters={setActiveFilters}
         />
-        <Products
-          activeFilters={activeFilters}
-          products={products}
-          isLoading={isLoading}
-          filteredProducts={filteredProducts}
-        />
+        <div className="flex flex-col">
+          <Products
+            activeFilters={activeFilters}
+            products={products}
+            isLoading={isLoading}
+            filteredProducts={filteredProducts}
+          />
+          <Pagination />
+        </div>
       </div>
     </div>
   )
