@@ -83,7 +83,7 @@ export const Pagination = ({
                     page === pageNumber
                       ? 'bg-indigo-600 text-white'
                       : 'text-gray-900'
-                  } px-4 py-2 text-base font-semibold hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:text-white`}
+                  } px-4 py-2 text-base font-semibold hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:text-white dark:hover:text-gray-400`}
                 >
                   {page}
                 </a>
