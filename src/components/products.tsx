@@ -27,13 +27,13 @@ export const Products = ({
           alt="imagem do produto"
         />
         <div className="flex flex-col gap-3">
-          <p className="text-base leading-[1.5rem] min-h-[3rem] text-gray-900">
+          <p className="text-base leading-[1.5rem] min-h-[3rem] text-gray-900 dark:text-white">
             {product.name}
           </p>
           <span className="font-normal text-xs leading-[0.75rem] text-blue-500">
             {product.category}
           </span>
-          <p className="flex items-center text-gray-700 gap-1">
+          <p className="flex items-center text-gray-700 gap-1 dark:text-white">
             {
               <Stars
                 isChecked={false}
