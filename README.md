@@ -81,4 +81,14 @@ http://localhost:3333
 [<img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg"
     height="28" />](https://igoralvesr.github.io)
 
+## 🧑‍💻 Rodrigo Rodrigues da Silva
+
+[<img
+    src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/devrosilva/)
+[<img
+    src=" https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/devrosilva)
+[<img
+    src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />](http://wa.me/5531991175855)
+[<img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg"
+    height="28" />](https://devrosilva.github.io/)
 
