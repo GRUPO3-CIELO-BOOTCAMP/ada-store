@@ -8,3 +8,6 @@ VITE_API_BASE_URL=http://localhost:3000
 VITE_API_TIMEOUT=20000
 VITE_DEFAULT_PAGE_SIZE=10
 VITE_DEFAULT_PAGE_NUMBER=1
+
+## Figma
+https://www.figma.com/file/dCrgggOntU3hNdsaT4ZrHc/ADASTORE?type=design&node-id=202-3&mode=design

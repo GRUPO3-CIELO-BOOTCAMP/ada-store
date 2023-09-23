@@ -10,5 +10,9 @@ export type ProductData = {
 
 export type CategoriesData = {
   categories: string[]
-  handleProducts: (isChecked: boolean, category: string) => void
+  filterByCategory: (isChecked: boolean, category: string) => void
+}
+
+export type RatingData = {
+  filterByRating: (isChecked: boolean, rate: number) => void
 }

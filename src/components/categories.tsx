@@ -3,9 +3,12 @@ import { Checkbox } from './ui/checkbox'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 
-export const Categories = ({ categories, handleProducts }: CategoriesData) => {
+export const Categories = ({
+  categories,
+  filterByCategory,
+}: CategoriesData) => {
   return (
-    <div className="w-[216px] h-[382px] gap-[14px] space-y-1.5">
+    <div className="w-max h-fit gap-[14px] space-y-1.5">
       <h2 className="text-sm font-medium leading-[13px] mb-[13px]">
         Categorias
       </h2>
@@ -25,7 +28,7 @@ export const Categories = ({ categories, handleProducts }: CategoriesData) => {
               <Checkbox
                 id="side-bar"
                 onCheckedChange={(e) => {
-                  handleProducts(!!e, category)
+                  filterByCategory(!!e, category)
                 }}
               />
               <Label htmlFor="side-bar" className="text-sm">

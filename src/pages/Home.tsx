@@ -1,38 +1,31 @@
 import { SideBar } from '@/components/side-bar'
-import { Stars } from '@/components/stars'
 import Api from '@/services/Api'
-import formatMoney from '@/utils/formatMoney'
 import { useEffect, useState } from 'react'
 import { ProductData } from '@/types/DataTypes'
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+import { Navbar } from '@/components/navbar'
+import { Products } from '@/components/products'
 
 export default function Home() {
   const [products, setProducts] = useState<ProductData[]>([])
   const [filteredProducts, setFilteredProducts] = useState<ProductData[]>([])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [pageSize, setPageSize] = useState<number>(
     import.meta.env.VITE_DEFAULT_PAGE_SIZE,
   )
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [pageNumber, setPageNumber] = useState<number>(
     import.meta.env.VITE_DEFAULT_PAGE_NUMBER,
   )
   const [isLoading, setIsLoading] = useState<boolean>(true)
   // TODO: Add logic for search products
-  // const [searchProduct, setSearchProduct] = useState<string>('')
+  const [searchProduct, setSearchProduct] = useState<string>('')
 
   useEffect(() => {
     ;(async () => {
       try {
         setIsLoading(true)
         const { data } = await Api.get(
-          `/products?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+          `/products?pageSize=${pageSize}&pageNumber=${pageNumber}&search=${searchProduct}`,
         )
         setProducts(data)
         setIsLoading(false)
@@ -41,37 +34,7 @@ export default function Home() {
         setIsLoading(false)
       }
     })()
-  }, [])
-
-  const renderProducts = (products: ProductData[]) => {
-    return products.map((product) => (
-      <Dialog key={product.id}>
-        <div className="flex flex-col max-w-[300px] p-4 rounded-[0.25rem] bg-gray-300">
-          <DialogContent>
-            <img src={product.avatar} alt="imagem do produto" />
-            <DialogHeader>
-              <DialogTitle>{product.name}</DialogTitle>
-            </DialogHeader>
-            <DialogDescription>{product.description}</DialogDescription>
-            <div>
-              <Stars isChecked={false} solidStarsAmount={product.rating} />
-              {formatMoney(product.price)}
-            </div>
-          </DialogContent>
-          <DialogTrigger>
-            <img src={product.avatar} alt="imagem do produto" />
-            <p>{product.name}</p>
-            <p>{product.category}</p>
-            <p>{product.description}</p>
-            <p>
-              {<Stars isChecked={false} solidStarsAmount={product.rating} />}
-            </p>
-            <p>{formatMoney(product.price)}</p>
-          </DialogTrigger>
-        </div>
-      </Dialog>
-    ))
-  }
+  }, [searchProduct])
 
   const CategoryFilter = () => {
     const uniqueCategories: string[] = []
@@ -98,14 +61,34 @@ export default function Home() {
     }
   }
 
+  const filterByRating = (isChecked: boolean, rate: number) => {
+    const result: ProductData[] = []
+    if (filteredProducts.length)
+      filteredProducts.forEach((product) => {
+        if (product.rating >= rate) result.push(product)
+      })
+    else if (rate)
+      products.forEach((product) => {
+        if (product.rating >= rate) result.push(product)
+      })
+    setFilteredProducts(result.length ? result : products)
+  }
+
   return (
-    <div className="grid grid-cols-4 gap-4 m-4">
-      <SideBar handleProducts={filterByCategory} categories={categories} />
-      {!products.length && !isLoading && <h1>Sem produtos encontrados</h1>}
-      {!!filteredProducts.length && renderProducts(filteredProducts)}
-      {!!products.length &&
-        !filteredProducts.length &&
-        renderProducts(products)}
+    <div className="flex flex-col w-full">
+      <Navbar onInputSearch={setSearchProduct} />
+      <div className="flex">
+        <SideBar
+          filterByCategory={filterByCategory}
+          filterByRating={filterByRating}
+          categories={categories}
+        />
+        <Products
+          products={products}
+          isLoading={isLoading}
+          filteredProducts={filteredProducts}
+        />
+      </div>
     </div>
   )
 }
